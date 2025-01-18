@@ -28,7 +28,7 @@
                         max="12" 
                         placeholder="Enter month number (1-12)"
                     >
-                <template v-if="validMonth">
+                <template v-if="seasonInfo">
                     <p>🗓️ Current season: {{ seasonInfo.name }}</p>
                     <p>👕 Recommended clothing: {{ seasonInfo.clothing }}</p>
                     <img 
@@ -79,14 +79,10 @@
                 };
             },
             computed: {
-                validMonth() {
-                    return this.month >= 1 && this.month <= 12;
-                },
                 seasonInfo() {
-                    if (!this.validMonth) return null;
-                    return Object.values(SEASONS).find(
+                    return this.month ? Object.values(SEASONS).find(
                         season => season.months.includes(this.month)
-                    );
+                    ) : null;
                 }
             },
             methods: {
