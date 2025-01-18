@@ -29,12 +29,14 @@
                     </ul>
                 </div>
                 <p>💰 Bank Account Balance: 
-                    <span :class="balanceClass">
-                        {{ formattedBalance }} грн
-                    </span>
+                    <span :class="balanceClass">{{ formattedBalances.balanceUAH }} грн</span>
                 </p>
-                <p>💵 Balance in USD: ${{ accountInfo.balanceUSD }}</p>
-                <p>💶 Balance in EUR: €{{ accountInfo.balanceEUR }}</p>
+                <p>💵 Balance in USD: 
+                    <span :class="balanceClassUSD">${{ formattedBalances.balanceUSD }}</span>
+                </p>
+                <p>💶 Balance in EUR: 
+                    <span :class="balanceClassEUR">€{{ formattedBalances.balanceEUR }}</span>
+                </p>
                 <div class="input-container">
                     <input 
                         v-model.number="amount" 
@@ -87,28 +89,34 @@
                 return {
                     balance: 0,
                     amount: 0,
-                    validAmount: false
+                    validAmount: false,
+                    lastTransactionType: null
                 };
             },
             computed: {
-                accountInfo() {
+                formattedBalances() {
                     const { USD, EUR } = BANK_CONFIG.EXCHANGE_RATES;
                     return {
                         balanceUSD: (this.balance / USD).toFixed(2),
-                        balanceEUR: (this.balance / EUR).toFixed(2)
+                        balanceEUR: (this.balance / EUR).toFixed(2),
+                        balanceUAH: this.balance.toFixed(2)
                     };
+                },
+                balanceClass() {
+                    if (!this.lastTransactionType) return 'balance neutral';
+                    return this.lastTransactionType === BANK_CONFIG.TRANSACTION_TYPES.DEPOSIT ? 'balance green' : 'balance red';
+                },
+                balanceClassUSD() {
+                    return parseFloat(this.formattedBalances.balanceUSD) >= BANK_CONFIG.TRANSACTION.MIN_BALANCE ? 'balance green' : 'balance red';
+                },
+                balanceClassEUR() {
+                    return parseFloat(this.formattedBalances.balanceEUR) >= BANK_CONFIG.TRANSACTION.MIN_BALANCE ? 'balance green' : 'balance red';
                 },
                 currentFee() {
                     return (this.amount * BANK_CONFIG.TRANSACTION.FEE_RATE).toFixed(2);
                 },
                 canWithdraw() {
                     return (this.amount + this.amount * BANK_CONFIG.TRANSACTION.FEE_RATE) <= this.balance;
-                },
-                balanceClass() {
-                    return this.balance < BANK_CONFIG.TRANSACTION.MIN_BALANCE ? 'balance red' : 'balance green';
-                },
-                formattedBalance() {
-                    return this.balance.toFixed(2);
                 }
             },
             methods: {
@@ -116,16 +124,18 @@
                     this.validAmount = this.amount > 0;
                 },
                 handleTransaction(type) {
-                    if (!this.validAmount) return;
-                    
-                    const fee = this.amount * BANK_CONFIG.TRANSACTION.FEE_RATE;
-                    
-                    if (type === BANK_CONFIG.TRANSACTION_TYPES.DEPOSIT) {
-                        this.balance += this.amount - fee;
-                    } else if (type === BANK_CONFIG.TRANSACTION_TYPES.WITHDRAW && this.canWithdraw) {
-                        this.balance -= this.amount + fee;
+                    if (!this.validAmount || (type === BANK_CONFIG.TRANSACTION_TYPES.WITHDRAW && !this.canWithdraw)) {
+                        return;
                     }
-                    
+
+                    const fee = this.amount * BANK_CONFIG.TRANSACTION.FEE_RATE;
+                    const operations = {
+                        [BANK_CONFIG.TRANSACTION_TYPES.DEPOSIT]: () => this.balance += this.amount - fee,
+                        [BANK_CONFIG.TRANSACTION_TYPES.WITHDRAW]: () => this.balance -= this.amount + fee
+                    };
+
+                    operations[type]();
+                    this.lastTransactionType = type;
                     this.amount = 0;
                     this.validAmount = false;
                 },
