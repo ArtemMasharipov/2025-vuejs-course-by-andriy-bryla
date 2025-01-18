@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3 - Random Number Generator</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>Task 3 - Random Number Generator</h2>
+                <div class="task-description">
+                    <p>Задано початок та кінець діапазону.</p>
+                    <ul>
+                        <li>При натисканні на кнопку випадковим чином генерувати значення з вказаного діапазону та відображати його.</li>
+                    </ul>
+                </div>
+                <div class="input-container">
+                    <input 
+                        v-model.number="rangeStart" 
+                        type="number" 
+                        placeholder="Enter range start"
+                    >
+                    <input 
+                        v-model.number="rangeEnd" 
+                        type="number" 
+                        placeholder="Enter range end"
+                    >
+                </div>
+                <button 
+                    @click="generateRandom" 
+                    :disabled="!validRange"
+                >
+                    Generate Random Number
+                </button>
+                <p v-if="randomNumber !== null">🎲 Random number: {{ randomNumber }}</p>
+                <p class="error" v-if="showError">❌ Invalid range.</p>
+            </div>
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    rangeStart: '',
+                    rangeEnd: '',
+                    randomNumber: null
+                };
+            },
+            computed: {
+                validRange() {
+                    const isValid = this.rangeStart && this.rangeEnd && this.rangeStart < this.rangeEnd;
+                    if (!isValid) this.randomNumber = null;
+                    return isValid;
+                },
+                showError() {
+                    return this.rangeStart && this.rangeEnd && this.rangeStart >= this.rangeEnd;
+                }
+            },
+            methods: {
+                generateRandom() {
+                    if (!this.validRange) return;
+                    const range = this.rangeEnd - this.rangeStart;
+                    this.randomNumber = this.rangeStart + Math.floor(Math.random() * (range + 1));
+                },
+                goBack() {
+                    window.location.href = '../index.html';
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
