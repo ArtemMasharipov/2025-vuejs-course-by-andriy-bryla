@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 - Season Clothing</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>Task 2 - Season Clothing</h2>
+                <div class="task-description">
+                    <p>Вводиться номер місяця. Автоматично виводити:</p>
+                    <ul>
+                        <li>рекомендований одяг (зима – пальто, літо – шорти ….)</li>
+                        <li>зображення лісу відповідно до сезону:</li>
+                        <li>зима – ліс зі снігом</li>
+                        <li>осінь – жовтий ліс</li>
+                        <li>і т.д.</li>
+                    </ul>
+                </div>
+                    <input 
+                        v-model.number="month" 
+                        type="number" 
+                        min="1" 
+                        max="12" 
+                        placeholder="Enter month number (1-12)"
+                    >
+                <template v-if="validMonth">
+                    <p>🗓️ Current season: {{ seasonInfo.name }}</p>
+                    <p>👕 Recommended clothing: {{ seasonInfo.clothing }}</p>
+                    <img 
+                        :src="seasonInfo.image" 
+                        :alt="seasonInfo.name" 
+                        class="season-image"
+                    >
+                </template>
+            </div>
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const SEASONS = {
+            SPRING: { 
+                months: [3, 4, 5], 
+                name: 'Spring', 
+                clothing: 'Light Jacket', 
+                image: '../images/spring_forest.jpg'
+            },
+            SUMMER: { 
+                months: [6, 7, 8], 
+                name: 'Summer', 
+                clothing: 'Shorts', 
+                image: '../images/summer_forest.jpg'
+            },
+            AUTUMN: { 
+                months: [9, 10, 11], 
+                name: 'Autumn', 
+                clothing: 'Coat', 
+                image: '../images/fall_forest.jpg'
+            },
+            WINTER: { 
+                months: [12, 1, 2], 
+                name: 'Winter', 
+                clothing: 'Coat', 
+                image: '../images/winter_forest.jpg'
+            }
+        };
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    month: null
+                };
+            },
+            computed: {
+                validMonth() {
+                    return this.month >= 1 && this.month <= 12;
+                },
+                seasonInfo() {
+                    if (!this.validMonth) return null;
+                    return Object.values(SEASONS).find(
+                        season => season.months.includes(this.month)
+                    );
+                }
+            },
+            methods: {
+                goBack() {
+                    window.location.href = '../index.html';
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

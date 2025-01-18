@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1 - Passenger Calculator</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>Task 1 - Passenger Calculator</h2>
+                <div class="task-description">
+                    <p>Вводиться кількість пасажирів. Вивести:</p>
+                    <ul>
+                        <li>скільки потрібно автобусів (кожен автобус на 20 місць)</li>
+                        <li>скільки пляшок води (кожному пасажиру 2 пляшки)</li>
+                        <li>скільки бутербродів (кожному пасажиру 3 бутерброди)</li>
+                    </ul>
+                </div>
+                <input 
+                    v-model.number="passengers" 
+                    type="number" 
+                    min="0" 
+                    placeholder="Enter number of passengers"
+                >
+                <template v-if="passengers >= 0">
+                    <p>🚌 Buses needed: {{ calculateNeeds.buses }}</p>
+                    <p>💧 Bottles of water needed: {{ calculateNeeds.bottles }}</p>
+                    <p>🥪 Sandwiches needed: {{ calculateNeeds.sandwiches }}</p>
+                </template>
+            </div>
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const PASSENGERS_PER_BUS = 20;
+        const BOTTLES_PER_PASSENGER = 2;
+        const SANDWICHES_PER_PASSENGER = 3;
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    passengers: 0
+                };
+            },
+            computed: {
+                calculateNeeds() {
+                    return {
+                        buses: Math.ceil(this.passengers / PASSENGERS_PER_BUS),
+                        bottles: this.passengers * BOTTLES_PER_PASSENGER,
+                        sandwiches: this.passengers * SANDWICHES_PER_PASSENGER
+                    };
+                }
+            },
+            methods: {
+                goBack() {
+                    window.location.href = '../index.html';
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
