@@ -2,7 +2,7 @@
   <div class="bookings-list">
     <h3>Recent Bookings</h3>
     <div v-if="sortedBookings.length">
-      <div v-for="booking in formaortdBookings" :key="booking.id" class="booking-item">
+      <div v-for="booking in formattedBookings" :key="booking.id" class="booking-item">
         <div class="booking-header">
           <button class="delete-btn" @click="deleteBooking(booking.id)">&times;</button>
         </div>
