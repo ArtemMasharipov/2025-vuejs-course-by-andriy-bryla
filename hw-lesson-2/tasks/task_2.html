@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane Ticket Class</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>{{ taskTitle }}</h2>
+                <div class="task-description">
+                    <p>{{ taskDescription }}</p>
+                </div>
+                <div class="task-content">
+                    <div class="initial-select">
+                        <select v-model="selectedClass" class="class-select" @change="handleClassChange">
+                            <option value="" disabled>Виберіть клас</option>
+                            <option value="business">Бізнес-клас</option>
+                            <option value="economy">Економ-клас</option>
+                        </select>
+                    </div>
+                    <transition name="fade">
+                        <div v-if="selectedClass" class="ticket-selector" :class="selectedClass">
+                            <div class="background-container"></div>
+                            <div class="content-overlay">
+                                <div v-if="selectedClass === 'business'" class="options business-options">
+                                    <h3>Додаткові послуги бізнес-класу:</h3>
+                                    <div class="option-item">
+                                        <select v-model="businessServices.service">
+                                            <option value="" disabled>Оберіть послугу</option>
+                                            <option value="newspaper">Газета</option>
+                                            <option value="cognac">Коньяк</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-item" v-if="businessServices.service === 'cognac'">
+                                        <select v-model="businessServices.snacks">
+                                            <option value="" disabled>Оберіть закуски</option>
+                                            <option value="false">Без закусок</option>
+                                            <option value="true">Із закусками</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div v-if="selectedClass === 'economy'" class="options economy-options">
+                                    <h3>Додаткові послуги економ-класу:</h3>
+                                    <div class="option-item">
+                                        <select v-model="economyServices.beerType">
+                                            <option value="" disabled>Оберіть тип пива</option>
+                                            <option value="light">Світле пиво</option>
+                                            <option value="dark">Темне пиво</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-item" v-if="economyServices.beerType">
+                                        <select v-model="economyServices.chips">
+                                            <option value="" disabled>Оберіть чіпси</option>
+                                            <option value="true">Чіпси 1</option>
+                                            <option value="true">Чіпси 2</option>
+                                            <option value="true">Чіпси 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+                </div>
+            </div>
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue
+
+        const TASK_INFO = {
+            title: 'Airplane Ticket Class Selection',
+            description: `Задача 2. З випадаючого списку вибираємо клас квитка у літаку. Якщо:
+                1) бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано коньяк, то запропонувати закуску (так/ні)), на фоні зображення бізнес кают
+                2) економ – виводимо елементи для вибору типу пива і чипсів, на фоні хмарки.`
+        };
+
+        createApp({
+            data() {
+                return {
+                    taskTitle: TASK_INFO.title,
+                    taskDescription: TASK_INFO.description,
+                    selectedClass: '',
+                    businessServices: {
+                        service: '',
+                        snacks: ''
+                    },
+                    economyServices: {
+                        beerType: '',
+                        chips: ''
+                    }
+                }
+            },
+            methods: {
+                handleClassChange() {
+                    if (this.selectedClass === 'business') {
+                        this.businessServices = {
+                            service: '',
+                            snacks: ''
+                        }
+                    } else {
+                        this.economyServices = {
+                            beerType: '',
+                            chips: ''
+                        }
+                    }
+                },
+                goBack() {
+                    window.location.href = '../index.html'
+                }
+            }
+        }).mount('#app')
+    </script>
+    
+    <style>
+    .task-content {
+        padding: 20px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .initial-select {
+        margin-bottom: 20px;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .initial-select .class-select {
+        width: 100%;
+        padding: 12px;
+        background: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #2c3e50;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .initial-select .class-select:focus {
+        border-color: #42b983;
+        box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.1);
+        outline: none;
+    }
+
+    .initial-select .class-select option {
+        padding: 8px;
+    }
+
+    .ticket-selector {
+        position: relative;
+        width: 100%;
+        padding-bottom: 133.33%;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .background-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: all 0.5s ease;
+    }
+
+    .content-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 30px;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.2),
+            rgba(0, 0, 0, 0.4)
+        );
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .options {
+        background: rgba(255, 255, 255, 0.5);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        max-height: calc(100% - 100px);
+        overflow-y: auto;
+    }
+
+    .business-options,
+    .economy-options {
+        backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 480px) {
+        .ticket-selector {
+            padding-bottom: 100%;
+        }
+
+        .content-overlay {
+            padding: 15px;
+        }
+
+        .options {
+            padding: 15px;
+        }
+    }
+
+    .business .background-container {
+        background: url('../images/task_2/business-class.jpg') center/cover no-repeat;
+        opacity: 0.9;
+    }
+
+    .economy .background-container {
+        background: url('../images/task_2/economy-class.jpg') center/cover no-repeat;
+        opacity: 0.9;
+    }
+
+    .class-select {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        font-size: 16px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        backdrop-filter: blur(5px);
+    }
+
+    .option-item {
+        margin: 15px 0;
+    }
+
+    .option-item select {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid rgba(44, 62, 80, 0.1);
+        border-radius: 8px;
+        font-size: 15px;
+        color: #2c3e50;
+        transition: all 0.3s ease;
+    }
+
+    .option-item select:focus {
+        outline: none;
+        border-color: #42b983;
+        box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.1);
+    }
+
+    .option-item select option {
+        background: white;
+        color: #2c3e50;
+        padding: 10px;
+    }
+
+    h3 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: all 0.5s ease;
+    }
+
+    .fade-enter-from, .fade-leave-to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 16px auto;
+    }
+    </style>
+</body>
+</html>
