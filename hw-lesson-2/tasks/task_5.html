@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Data Rendering</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>{{ title }}</h2>
+
+                <div class="task-description">
+                    <p>{{ description }}</p>
+                </div>
+
+                <div class="task-content">
+                    <div class="search-results">
+                        <template v-for="result in results" :key="result.id">
+                            <div class="result" :style="result.style">
+                                <h3 class="title">
+                                    <span class="link-icon">🔗</span>
+                                    <a :href="result.link" target="_blank">{{ result.title }}</a>
+                                </h3>
+                                <div class="url">{{ result.link }}</div>
+                                <p class="description">{{ result.description }}</p>
+                                <div class="topics" v-if="result.topics">
+                                    <span v-for="topic in result.topics" 
+                                          :key="topic" 
+                                          class="topic">
+                                        <span class="topic-icon">📌</span>
+                                        {{ topic }}
+                                    </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        const TASK_INFO = {
+            title: 'Dynamic Data Rendering',
+            description: 'Задача 5. Самостійно сформуйте масив даних та виведіть фрагмент на зразок поданого (дані не обов’язково повинні співпадати)'
+        };
+
+        const SEARCH_RESULTS = [
+            {
+                id: 1,
+                title: 'Vue.js Tutorial',
+                link: 'https://vuejs.org',
+                description: 'Welcome to the Vue tutorial! The goal of this tutorial is to quickly give you an experience of what it feels like to work with Vue, right in the browser.',
+                topics: ['Creating a Vue Application', 'Reactivity Fundamentals', 'Lifecycle Hooks', 'Watchers']
+            },
+            {
+                id: 2,
+                title: 'Getting started with Vue - MDN Web Docs',
+                link: 'https://developer.mozilla.org',
+                description: 'In this article, we\'ll look at a little bit of Vue background, learn how to install it and create a new project, study the high-level structure of the whole.',
+                topics: ['Installation', 'Project structure', '.vue files (single file components)']
+            },
+            {
+                id: 3,
+                title: 'Vue Tutorial - W3Schools',
+                link: 'https://www.w3schools.com/vue/',
+                description: 'This tutorial is specially designed to help you learn Vue as quickly and efficiently as possible. First, you will learn the basics of Vue.'
+            },
+            {
+                id: 4,
+                title: 'Introduction — Vue.js',
+                link: 'https://v2.vuejs.org',
+                description: 'The official guide assumes intermediate-level knowledge of HTML, CSS, and JavaScript. If you are totally new to frontend development, it might not be the best starting point.',
+                topics: ['Quick Start', 'Style Guide', 'The Vue Instance', 'Migration to Vue 2.7']
+            }
+        ];
+
+        createApp({
+            data() {
+                return {
+                    ...TASK_INFO,
+                    results: SEARCH_RESULTS.map((result, index) => ({
+                        ...result,
+                        style: { '--index': index }
+                    }))
+                }
+            },
+            methods: {
+                goBack() {
+                    window.location.href = '../index.html'
+                }
+            }
+        }).mount('#app')
+    </script>
+
+    <style>
+        .search-results {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .result {
+            margin-bottom: 28px;
+            padding: 24px;
+            background: #1a1f36;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #42b983;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .result:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .result:hover::before {
+            opacity: 1;
+        }
+
+        .title {
+            margin: 0 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .link-icon {
+            color: #42b983;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .title a {
+            color: #42b983;
+            font-size: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .title a:hover {
+            color: #5ccb9a;
+            text-decoration: underline;
+        }
+
+        .url {
+            color: #8b9cbc;
+            font-size: 14px;
+            margin: 8px 0;
+            opacity: 0.8;
+            font-family: monospace;
+        }
+
+        .description {
+            color: #e2e8f0;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 16px 0;
+            opacity: 0.9;
+        }
+
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .topic {
+            background: rgba(66, 185, 131, 0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #42b983;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(66, 185, 131, 0.2);
+        }
+
+        .topic:hover {
+            background: rgba(66, 185, 131, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .topic-icon {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result {
+            animation: fadeIn 0.3s ease-out forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .task-content {
+            background: #111827;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .result {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .title a {
+                font-size: 18px;
+            }
+
+            .description {
+                font-size: 14px;
+                margin: 12px 0;
+            }
+
+            .topics {
+                margin-top: 12px;
+            }
+
+            .topic {
+                padding: 4px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</body>
+</html>

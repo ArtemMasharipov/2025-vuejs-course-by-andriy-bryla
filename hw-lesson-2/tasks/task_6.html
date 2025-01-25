@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Order Management</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>{{ taskTitle }}</h2>
+
+                <div class="task-description">
+                    <p>{{ taskDescription }}</p>
+                </div>
+
+                <div class="task-content">
+                    <div class="order-management">
+                        <div class="new-order">
+                            <input type="text" 
+                                   v-model.trim="newOrder" 
+                                   placeholder="Add dish"
+                                   @input="validateInput">
+                            <button @click="addOrder" 
+                                    :disabled="!isValidInput"
+                                    :class="{ 'disabled': !isValidInput }">
+                                Add
+                            </button>
+                        </div>
+
+                        <div class="lists-container">
+                            <div class="order-list">
+                                <h3>Waiting ({{ waitingList.length }})</h3>
+                                <ul>
+                                    <li v-for="order in waitingList" :key="order.id">
+                                        {{ order.name }}
+                                        <button @click="moveToProcessing(order.id)">Cook</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="order-list">
+                                <h3>Cooking ({{ processingList.length }})</h3>
+                                <ul>
+                                    <li v-for="order in processingList" :key="order.id">
+                                        {{ order.name }}
+                                        <button @click="moveToCompleted(order.id)">Ready</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="order-list">
+                                <h3>Ready ({{ completedList.length }})</h3>
+                                <ul>
+                                    <li v-for="order in completedList" :key="order.id">
+                                        {{ order.name }}
+                                        <button @click="removeOrder(order.id)">Done</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue
+
+        const TASK_INFO = {
+            title: 'Kitchen Order Management',
+            description: `Задача 6. На кухню поступають замовлення. Спочатку ми додаємо їх у список "Очікують на виконання", 
+                якщо повар береться робити — замовлення переходить у список "Виконуються", 
+                якщо замовлення виконано — переходить у список "Готові до виносу". 
+                Якщо натиснути на "Подано" - страва зникає з таблиці`
+        };
+
+        createApp({
+            data() {
+                return {
+                    taskTitle: TASK_INFO.title,
+                    taskDescription: TASK_INFO.description,
+                    newOrder: '',
+                    waitingList: [],
+                    processingList: [],
+                    completedList: [],
+                    isValidInput: false
+                }
+            },
+            methods: {
+                validateInput() {
+                    this.isValidInput = this.newOrder.length > 0;
+                },
+                addOrder() {
+                    if (!this.isValidInput) return;
+                    
+                    this.waitingList.push({
+                        id: uuidv4(),
+                        name: this.newOrder
+                    });
+                    this.newOrder = '';
+                    this.isValidInput = false;
+                },
+                moveToProcessing(orderId) {
+                    const orderIndex = this.waitingList.findIndex(o => o.id === orderId);
+                    if (orderIndex !== -1) {
+                        const order = this.waitingList[orderIndex];
+                        this.waitingList.splice(orderIndex, 1);
+                        this.processingList.push(order);
+                    }
+                },
+                moveToCompleted(orderId) {
+                    const orderIndex = this.processingList.findIndex(o => o.id === orderId);
+                    if (orderIndex !== -1) {
+                        const order = this.processingList[orderIndex];
+                        this.processingList.splice(orderIndex, 1);
+                        this.completedList.push(order);
+                    }
+                },
+                removeOrder(orderId) {
+                    this.completedList = this.completedList.filter(o => o.id !== orderId);
+                },
+                goBack() {
+                    window.location.href = '../index.html'
+                }
+            }
+        }).mount('#app')
+    </script>
+
+    <style>
+        button.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #ccc;
+        }
+
+        button:not(.disabled):hover {
+            background-color: #3aa876;
+        }
+
+        .new-order input {
+            border: 2px solid #e0e0e0;
+            transition: border-color 0.3s ease;
+        }
+
+        .new-order input:focus {
+            border-color: #42b983;
+            outline: none;
+        }
+    </style>
+</body>
+</html>

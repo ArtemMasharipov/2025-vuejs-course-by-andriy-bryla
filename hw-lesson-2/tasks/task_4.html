@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="task-container">
+            <div class="content-wrapper">
+                <h2>{{ taskTitle }}</h2>
+
+                <div class="task-description">
+                    <p>{{ taskDescription }}</p>
+                </div>
+
+                <div class="task-content">
+                    <div class="employee-list">
+                        <ul>
+                            <li v-for="employee in employees" :key="employee.id">
+                                {{ employee.name }}: ${{ employee.salary }}
+                            </li>
+                        </ul>
+                        <div class="summary">
+                            Total Employees: {{ employees.length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-footer">
+                <button class="back-btn" @click="goBack">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        const TASK_INFO = {
+            title: 'Employee List',
+            description: 'Задача 4. Вивести список як маркований список з елементами у форматі (name: salary)'
+        };
+
+        const EMPLOYEES_DATA = [
+            { id: '111', name: 'Іванов', salary: 10000 },
+            { id: '112', name: 'Петров', salary: 20000 },
+            { id: '113', name: 'Сидоров', salary: 50000 }
+        ];
+
+        createApp({
+            data() {
+                return {
+                    taskTitle: TASK_INFO.title,
+                    taskDescription: TASK_INFO.description,
+                    employees: EMPLOYEES_DATA
+                }
+            },
+            methods: {
+                goBack() {
+                    window.location.href = '../index.html'
+                }
+            }
+        }).mount('#app')
+    </script>
+
+    <style>
+        .employee-list {
+            max-width: 600px;
+            margin-bottom: 60px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            color: #333;
+            background: #f9f9f9;
+        }
+
+        .summary {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .task-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #42b983;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-button:hover {
+            background-color: #3aa876;
+        }
+
+        .employee-list ul {
+            list-style-type: disc;
+            padding-left: 40px;
+            margin: 20px 0;
+        }
+
+        .employee-list li {
+            margin: 12px 0;
+            padding: 8px 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            color: #333;
+            position: relative;
+            display: list-item;
+        }
+    </style>
+</body>
+</html>
