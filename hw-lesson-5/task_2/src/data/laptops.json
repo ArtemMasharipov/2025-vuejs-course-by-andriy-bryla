@@ -1,0 +1,28 @@
+{
+  "laptops": [
+    {
+      "id": 1,
+      "name": "Ноутбук ASUS TUF Gaming A15 (2023)",
+      "image": "Ноутбук ASUS TUF Gaming A15 (2023).png",
+      "oldPrice": 59999,
+      "currentPrice": 51999,
+      "savings": 8000
+    },
+    {
+      "id": 2,
+      "name": "Ноутбук ASUS TUF Gaming F15",
+      "image": "Ноутбук ASUS TUF Gaming F15.png",
+      "oldPrice": 38999,
+      "currentPrice": 32499,
+      "savings": 6500
+    },
+    {
+      "id": 3,
+      "name": "Ноутбук HP Victus Gaming Laptop",
+      "image": "Ноутбук HP Victus Gaming Laptop.jpg",
+      "oldPrice": 39999,
+      "currentPrice": 34999,
+      "savings": 5000
+    }
+  ]
+}
