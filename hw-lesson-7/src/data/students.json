@@ -1,0 +1,12 @@
+{
+  "gradeSystem": "12",
+  "students": [
+    { "id": 1, "name": "Коваль Тарас", "average": 10 },
+    { "id": 2, "name": "Григоренко Іван", "average": 9 },
+    { "id": 3, "name": "Маркович Оля", "average": 11 },
+    { "id": 4, "name": "Василенко Іра", "average": 12 },
+    { "id": 5, "name": "Пилин Тарас", "average": 7 },
+    { "id": 6, "name": "Баба Галя", "average": 35 },
+    { "id": 7, "name": "Дід Степан", "average": 21 }
+  ]
+}
