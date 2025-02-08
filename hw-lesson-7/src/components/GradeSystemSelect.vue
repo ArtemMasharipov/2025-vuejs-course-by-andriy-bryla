@@ -20,15 +20,12 @@ export default {
         systems: Object.values(SYSTEMS)
     }),
     computed: {
-        ...mapGetters(['filteredStudentsByCategory', 'isLoading']),
-        ...mapGetters({
-            currentCategory: 'selectedCategory'
-        }),
+        ...mapGetters(['filteredStudentsByCategory', 'isLoading', 'selectedCategory']),
         hasStudents() {
             return this.filteredStudentsByCategory?.length > 0
         },
         isSpecialCategory() {
-            return this.currentCategory === CATEGORIES.SPECIAL.id
+            return this.selectedCategory === CATEGORIES.SPECIAL.id
         },
         isDisabled() {
             return this.isLoading || this.isSpecialCategory || !this.hasStudents
