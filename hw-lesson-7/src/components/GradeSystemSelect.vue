@@ -1,9 +1,5 @@
 <template>
-    <select 
-        :value="system" 
-        :disabled="isDisabled" 
-        @change="handleChange"
-    >
+    <select v-model="selectedSystem" :disabled="isDisabled">
         <option v-for="{ id, name } in systems" :key="id" :value="id">
             {{ isDisabled ? '' : name }}
         </option>
@@ -16,11 +12,18 @@ import { SYSTEMS, CATEGORIES } from '../constants/grades'
 
 export default {
     data: () => ({
-        system: SYSTEMS.TWELVE.id,
-        systems: Object.values(SYSTEMS)
+        systems: Object.values(SYSTEMS),
     }),
     computed: {
         ...mapGetters(['filteredStudentsByCategory', 'isLoading', 'selectedCategory']),
+        selectedSystem: {
+            get() {
+                return this.system || SYSTEMS.TWELVE.id
+            },
+            set(value) {
+                this.changeSystem(value)
+            },
+        },
         hasStudents() {
             return this.filteredStudentsByCategory?.length > 0
         },
@@ -29,14 +32,11 @@ export default {
         },
         isDisabled() {
             return this.isLoading || this.isSpecialCategory || !this.hasStudents
-        }
+        },
     },
     methods: {
         ...mapActions(['changeSystem']),
-        handleChange(event) {
-            this.changeSystem(event.target.value)
-        }
-    }
+    },
 }
 </script>
 
