@@ -50,19 +50,12 @@ export default {
             return this.filters.brands.length > 0
         },
         filteredProducts() {
-            return this.productsData.filter(this.isProductMatchingFilters)
-        },
-    },
-    methods: {
-        isProductMatchingFilters(product) {
-            return this.isMatchingShopFilter(product) && this.isMatchingBrandFilter(product)
-        },
-        isMatchingShopFilter(product) {
-            return !this.hasActiveShopFilter || this.filters.shops.includes(product.shop)
-        },
-        isMatchingBrandFilter(product) {
-            const brand = product.title.split(' ')[0]
-            return !this.hasActiveBrandFilter || this.filters.brands.includes(brand)
+            return this.productsData.filter((product) => {
+                const matchesShop = !this.hasActiveShopFilter || this.filters.shops.includes(product.shop)
+                const brand = product.title.split(' ')[0]
+                const matchesBrand = !this.hasActiveBrandFilter || this.filters.brands.includes(brand)
+                return matchesShop && matchesBrand
+            })
         },
     },
 }
