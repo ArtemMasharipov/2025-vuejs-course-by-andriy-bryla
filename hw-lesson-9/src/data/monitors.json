@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "UltraWide 34\"",
+    "price": 449.99,
+    "description": "34-inch curved ultrawide monitor with 3440x1440 resolution",
+    "itemImg": "🖥️",
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 2,
+    "name": "Gaming Monitor 27\"",
+    "price": 329.99,
+    "description": "27-inch gaming monitor with 165Hz refresh rate and 1ms response time",
+    "itemImg": "🖥️",
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 3,
+    "name": "Professional 32\" 4K",
+    "price": 699.99,
+    "description": "32-inch 4K monitor with professional color accuracy for content creators",
+    "itemImg": "🖥️",
+    "inStock": false,
+    "rating": 4.9
+  },
+  {
+    "id": 4,
+    "name": "Budget Monitor 24\"",
+    "price": 129.99,
+    "description": "24-inch 1080p monitor perfect for everyday computing",
+    "itemImg": "🖥️",
+    "inStock": true,
+    "rating": 4.3
+  },
+  {
+    "id": 5,
+    "name": "Portable Monitor 15.6\"",
+    "price": 179.99,
+    "description": "15.6-inch portable USB-C monitor for on-the-go productivity",
+    "itemImg": "🖥️",
+    "inStock": true,
+    "rating": 4.4
+  }
+]

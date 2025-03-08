@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "SuperPhone X",
+    "price": 999.99,
+    "description": "Latest flagship smartphone with 6.7-inch OLED display and triple camera system",
+    "itemImg": "📱",
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "name": "MegaPhone Pro",
+    "price": 1199.99,
+    "description": "Premium smartphone with 6.9-inch 120Hz display and 108MP camera",
+    "itemImg": "📱",
+    "inStock": true,
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "name": "UltraPhone Lite",
+    "price": 499.99,
+    "description": "Mid-range smartphone with 6.4-inch display and all-day battery life",
+    "itemImg": "📱",
+    "inStock": true,
+    "rating": 4.5
+  },
+  {
+    "id": 4,
+    "name": "ClassicPhone",
+    "price": 299.99,
+    "description": "Budget-friendly smartphone with reliable performance",
+    "itemImg": "📱",
+    "inStock": false,
+    "rating": 4.2
+  },
+  {
+    "id": 5,
+    "name": "FoldPhone Z",
+    "price": 1599.99,
+    "description": "Revolutionary foldable smartphone with 7.6-inch expandable display",
+    "itemImg": "📱",
+    "inStock": true,
+    "rating": 4.7
+  }
+]

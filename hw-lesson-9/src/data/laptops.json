@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "UltraBook Pro",
+    "price": 1299.99,
+    "description": "Ultra-thin and light laptop with 14-inch display and 12-hour battery life",
+    "itemImg": "💻",
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "name": "Gaming Laptop X",
+    "price": 1799.99,
+    "description": "High-performance gaming laptop with RTX graphics and 144Hz display",
+    "itemImg": "💻",
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 3,
+    "name": "Business Laptop",
+    "price": 999.99,
+    "description": "Reliable business laptop with security features and durable design",
+    "itemImg": "💻",
+    "inStock": false,
+    "rating": 4.5
+  },
+  {
+    "id": 4,
+    "name": "Budget Laptop",
+    "price": 499.99,
+    "description": "Affordable laptop for everyday computing and web browsing",
+    "itemImg": "💻",
+    "inStock": true,
+    "rating": 4.2
+  },
+  {
+    "id": 5,
+    "name": "Convertible 2-in-1",
+    "price": 899.99,
+    "description": "Versatile 2-in-1 laptop with touchscreen and 360-degree hinge",
+    "itemImg": "💻",
+    "inStock": true,
+    "rating": 4.6
+  }
+]

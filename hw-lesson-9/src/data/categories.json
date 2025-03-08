@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "TVs",
+    "file": "tvs.json",
+    "itemImg": "📺"
+  },
+  {
+    "id": 2,
+    "name": "Phones",
+    "file": "phones.json",
+    "itemImg": "📱"
+  },
+  {
+    "id": 3,
+    "name": "Monitors",
+    "file": "monitors.json",
+    "itemImg": "🖥️"
+  },
+  {
+    "id": 4,
+    "name": "Laptops",
+    "file": "laptops.json",
+    "itemImg": "💻"
+  }
+]

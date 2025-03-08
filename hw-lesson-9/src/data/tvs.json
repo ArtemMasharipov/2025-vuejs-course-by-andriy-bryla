@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Smart TV 55\"",
+    "price": 799.99,
+    "description": "55-inch 4K Ultra HD Smart TV with HDR and built-in streaming apps",
+    "itemImg": "📺",
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 2,
+    "name": "OLED TV 65\"",
+    "price": 1499.99,
+    "description": "65-inch OLED TV with perfect blacks and vibrant colors",
+    "itemImg": "📺",
+    "inStock": true,
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "name": "QLED TV 50\"",
+    "price": 699.99,
+    "description": "50-inch QLED TV with Quantum Dot technology for incredible color accuracy",
+    "itemImg": "📺",
+    "inStock": false,
+    "rating": 4.5
+  },
+  {
+    "id": 4,
+    "name": "Mini LED TV 75\"",
+    "price": 1999.99,
+    "description": "75-inch Mini LED TV with thousands of dimming zones for precise backlighting",
+    "itemImg": "📺",
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 5,
+    "name": "Portable TV 24\"",
+    "price": 199.99,
+    "description": "24-inch portable LED TV, perfect for kitchens or small spaces",
+    "itemImg": "📺",
+    "inStock": true,
+    "rating": 4.2
+  }
+]
