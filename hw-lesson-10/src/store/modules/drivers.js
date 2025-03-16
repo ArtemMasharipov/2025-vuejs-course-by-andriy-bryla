@@ -57,8 +57,12 @@ const customOptions = {
       throw new Error('A driver with this license number already exists.');
     }
   },
-  afterDelete: ({ dispatch, id }) => {
-    dispatch('assignments/deleteAssignmentsByDriverId', id, { root: true });
+  afterDelete: async ({ dispatch, id }) => {
+    try {
+      await dispatch('assignments/deleteAssignmentsByDriverId', id, { root: true });
+    } catch (error) {
+      console.error('Error while deleting related assignments:', error);
+    }
   }
 };
 

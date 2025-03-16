@@ -32,7 +32,7 @@
             v-for="driver in getFilteredDrivers"
             :key="driver.id"
             :driver="driver"
-            @delete="deleteDriver"
+            @delete="handleDeleteDriver"
           />
         </tbody>
       </table>
@@ -65,6 +65,13 @@ export default {
   },
   methods: {
     ...mapActions('drivers', ['deleteDriver', 'loadDrivers']),
+    async handleDeleteDriver(id) {
+      try {
+        await this.deleteDriver(id);
+      } catch (error) {
+        console.error('Error deleting driver:', error);
+      }
+    },
   },
   created() {
     this.loadDrivers();

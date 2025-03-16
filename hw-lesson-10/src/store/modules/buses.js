@@ -18,8 +18,12 @@ const customOptions = {
       throw new Error('A bus with this license plate already exists.');
     }
   },
-  afterDelete: ({ dispatch, id }) => {
-    dispatch('assignments/deleteAssignmentsByBusId', id, { root: true });
+  afterDelete: async ({ dispatch, id }) => {
+    try {
+      await dispatch('assignments/deleteAssignmentsByBusId', id, { root: true });
+    } catch (error) {
+      console.error('Error while deleting related assignments:', error);
+    }
   }
 };
 

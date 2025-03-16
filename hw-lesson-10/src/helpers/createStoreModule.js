@@ -124,14 +124,19 @@ export default function createStoreModule(
             const exists = getters[`get${entityName}ById`](id);
             if (!exists) throw new Error(`${entityName} not found`);
 
-            commit(`delete${entityName}`, id);
-            await dispatch(`save${entityPlural}`);
+            try {
+                if (customOptions.afterDelete) {
+                    await customOptions.afterDelete({ dispatch, id });
+                }
 
-            if (customOptions.afterDelete) {
-                await customOptions.afterDelete({ dispatch, id });
+                commit(`delete${entityName}`, id);
+                await dispatch(`save${entityPlural}`);
+                
+                return id;
+            } catch (error) {
+                console.error(`Error during ${entityName.toLowerCase()} deletion:`, error);
+                throw new Error(`Failed to delete ${entityNameLower}: ${error.message}`);
             }
-
-            return id;
         },
     };
 

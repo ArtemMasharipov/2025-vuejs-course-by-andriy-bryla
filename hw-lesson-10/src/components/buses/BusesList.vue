@@ -30,7 +30,7 @@
             v-for="bus in getBuses"
             :key="bus.id"
             :bus="bus"
-            @delete="deleteBus"
+            @delete="handleDeleteBus"
           />
         </tbody>
       </table>
@@ -54,6 +54,13 @@ export default {
   },
   methods: {
     ...mapActions('buses', ['deleteBus', 'loadBuses']),
+    async handleDeleteBus(id) {
+      try {
+        await this.deleteBus(id);
+      } catch (error) {
+        console.error('Error deleting bus:', error);
+      }
+    },
   },
   created() {
     this.loadBuses();

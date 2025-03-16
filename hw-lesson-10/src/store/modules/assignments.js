@@ -19,35 +19,45 @@ const customOptions = {
   },
   actions: {
     deleteAssignmentsByDriverId({ state, commit, dispatch }, driverId) {
-      const assignmentsToDelete = state.assignments.filter(
-        assignment => assignment.driverId === driverId
-      );
-      
-      assignmentsToDelete.forEach(assignment => {
-        commit('deleteAssignment', assignment.id);
-      });
-      
-      if (assignmentsToDelete.length > 0) {
-        dispatch('saveAssignments');
+      try {
+        const assignmentsToDelete = state.assignments.filter(
+          assignment => assignment.driverId === driverId
+        );
+        
+        assignmentsToDelete.forEach(assignment => {
+          commit('deleteAssignment', assignment.id);
+        });
+        
+        if (assignmentsToDelete.length > 0) {
+          dispatch('saveAssignments');
+        }
+        
+        return assignmentsToDelete.length;
+      } catch (error) {
+        console.error(`Error deleting assignments for driver ${driverId}:`, error);
+        throw error;
       }
-      
-      return assignmentsToDelete.length;
     },
     
     deleteAssignmentsByBusId({ state, commit, dispatch }, busId) {
-      const assignmentsToDelete = state.assignments.filter(
-        assignment => assignment.busId === busId
-      );
-      
-      assignmentsToDelete.forEach(assignment => {
-        commit('deleteAssignment', assignment.id);
-      });
-      
-      if (assignmentsToDelete.length > 0) {
-        dispatch('saveAssignments');
+      try {
+        const assignmentsToDelete = state.assignments.filter(
+          assignment => assignment.busId === busId
+        );
+        
+        assignmentsToDelete.forEach(assignment => {
+          commit('deleteAssignment', assignment.id);
+        });
+        
+        if (assignmentsToDelete.length > 0) {
+          dispatch('saveAssignments');
+        }
+        
+        return assignmentsToDelete.length;
+      } catch (error) {
+        console.error(`Error deleting assignments for bus ${busId}:`, error);
+        throw error;
       }
-      
-      return assignmentsToDelete.length;
     }
   },
   validateCreate: ({ state, itemData }) => {
