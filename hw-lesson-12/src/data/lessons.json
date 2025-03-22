@@ -1,0 +1,7 @@
+[
+  { "id": 1, "title": "Mathematics", "description": "Algebra and geometry basics" },
+  { "id": 2, "title": "Physics", "description": "Classical mechanics and thermodynamics" },
+  { "id": 3, "title": "Chemistry", "description": "Organic and inorganic chemistry" },
+  { "id": 4, "title": "Biology", "description": "Cell biology and genetics" },
+  { "id": 5, "title": "Literature", "description": "World classics and poetry" }
+]
