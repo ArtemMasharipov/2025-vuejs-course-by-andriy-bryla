@@ -1,0 +1,8 @@
+export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+export const SET_PRODUCTS = 'SET_PRODUCTS'
+
+export const SET_SUPPLIERS = 'SET_SUPPLIERS'
+
+export const SET_LOADING = 'SET_LOADING'

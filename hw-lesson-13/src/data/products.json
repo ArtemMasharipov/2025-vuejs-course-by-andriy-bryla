@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Макарони", "price": 48, "image": "pasta.jpg" },
+  { "id": 2, "name": "Ковбаса", "price": 320, "image": "sausage.jpg" },
+  { "id": 3, "name": "Хліб", "price": 25, "image": "bread.jpg" },
+  { "id": 4, "name": "Сир", "price": 298, "image": "cheese.jpg" }
+]

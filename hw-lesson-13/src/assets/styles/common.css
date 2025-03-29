@@ -1,0 +1,50 @@
+@import './variables.css';
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Spacing Utilities */
+.mt-lg { margin-top: var(--space-lg); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* Typography */
+.text-center { text-align: center; }
+
+/* Common Components */
+.placeholder-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-color: var(--color-background-lighter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  border-radius: var(--border-radius-md);
+}
+
+/* Link styling */
+.link-default {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link-default:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

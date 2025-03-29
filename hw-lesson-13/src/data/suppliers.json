@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Політ", "rating": 4.5, "popular": false },
+  { "id": 2, "name": "Надійність", "rating": 4.3, "popular": false },
+  { "id": 3, "name": "Швидка", "rating": 4.7, "popular": false },
+  { "id": 4, "name": "Економ", "rating": 4.8, "popular": true }
+]
