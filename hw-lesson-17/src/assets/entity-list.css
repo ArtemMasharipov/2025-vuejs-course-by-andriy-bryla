@@ -1,0 +1,111 @@
+.entity-list-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+  max-width: 1000px;
+}
+
+.entity-list-container .v-card {
+  width: 100%;
+  margin-bottom: 16px;
+  max-width: 100%;
+}
+
+.entity-form-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+  max-width: 700px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100% !important;
+  max-width: 700px !important;
+}
+
+.list-header-card {
+  margin-bottom: 16px !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+.v-data-table-virtual {
+  min-height: 300px !important;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+}
+
+.item-card {
+  width: 100%;
+  margin-bottom: 16px;
+  height: auto;
+  min-height: 150px;
+  max-width: 100%;
+}
+
+.page-content {
+  min-height: calc(100vh - 200px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+  max-width: 100%;
+}
+
+.v-card-text, .v-card-title, .v-card-actions {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.entity-list-container .v-data-table-virtual {
+  width: 100%;
+}
+
+/* Улучшенные стили для форм */
+.v-select .v-field__input {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  position: relative;
+}
+
+/* Исправление для дублирования v-field */
+.v-field__field {
+  display: flex;
+  align-items: center;
+}
+
+.v-field__field .v-label {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.v-field__field .v-label--floating {
+  top: 6px;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .entity-list-container,
+  .entity-form-container {
+    width: 100%;
+  }
+}
